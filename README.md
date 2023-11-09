@@ -11,7 +11,7 @@ This package was tested on the following environment:
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 
-- Python 3.11 or higher
+- Python 3.9 or higher
 - A C++ compiler that supports C++11 (e.g., MSVC, GCC or Clang)
 - Access to the Lucam SDK and its development libraries
 - Installed to Lumenera drivers for the camera

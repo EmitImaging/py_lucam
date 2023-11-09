@@ -22,7 +22,7 @@ else:
     std_flag = '-std=c++11'
     lib_directory = os.path.join(lucam_root, 'api', 'lib')
     include_directory = os.path.join(lucam_root, 'api', 'include')
-    link_args = [f'-L{lib_directory}', f'-l'{libraries[0]}]
+    link_args = [f'-L{lib_directory}', f'-l{libraries[0]}']
 
 lucam_module = Extension(
     name='lucam',
@@ -40,7 +40,7 @@ setup(
     author='Emit Imaging',
     author_email='yannick.cadoret@emitimaging.com',
     url='https://www.emitimaging.com',
-    python_requires='>=3.11',
+    python_requires='>=3.9',
     install_requires=['numpy>=1.26.1'],
     platforms=[f'{platform_name}'],
     ext_modules=[lucam_module],

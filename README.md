@@ -1,14 +1,20 @@
 # py_lucam
 This repository contains the Python bindings for Lumenera's LuCam SDK, allowing you to interact with Lumenera cameras directly from Python.
+See **Teledyne Lumenera** [official's website](https://www.lumenera.com/) to acquire the proper drivers and SDK for your system.
 
-This was currently tested on Ubuntu 22.04 with the Linux sdk version 2.4.11.241. This is currently only a partial implementation.
+This package was tested on the following environment:
+* Ubuntu 22.04 with the SDK version 2.4.11.241
+* Windows 10 x64 with the SDK version 6.9.0
+
+**This is currently only a partial implementation.**
 
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 
-- Python 3.9 or higher
-- A C++ compiler that supports C++11 (e.g., GCC or Clang)
-- Access to the Lucam API and its development libraries (version 2.4.11.241+)
+- Python 3.11 or higher
+- A C++ compiler that supports C++11 (e.g., MSVC, GCC or Clang)
+- Access to the Lucam SDK and its development libraries
+- Installed to Lumenera drivers for the camera
 
 ## Installation
 
@@ -34,6 +40,11 @@ export LUMENERA_SDK=/my/lucam_sdk/root/location/
 ```
 
 ## Usage
+To install the generated wheel package using pip:
+```bash
+pip install dist/py_lucam-0.1-cp311-cp311-win_amd64.whl
+```
+Once the package installed, the connected devices can be interacted with using the `lucam` module:
 ```python
 import lucam
 import numpy as np
@@ -45,9 +56,16 @@ camHandle = lucam.CameraOpen(camIndex)
 # Close camera connection
 lucam.CameraClose(camHandle)
 ```
-See examples/binding_test.py for a full example. (OpenCV installation is required)
+
+## Example
+See [examples/binding_test.py](https://github.com/EmitImaging/py_lucam/blob/main/examples/binding_test.py) for a full example.
+
+To run the example, OpenCV must first be installed:
+```
+pip install opencv-python
+```
 ```bash
-./python3 examples/binding_test.py
+./python examples/binding_test.py
 ```
 
 ## Contributing

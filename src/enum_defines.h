@@ -1,4 +1,10 @@
-#include "api/include/ludefines.h"
+/*
+    Copyright (c) 2023, Emit Imaging
+    All rights reserved.
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree. 
+*/
+#include "ludefines.h"
 
 // Video Streaming Modes
 enum LucamVideoStreamingMode {
@@ -18,7 +24,9 @@ enum LucamPixelFormat {
     Depth48Bits = LUCAM_PF_48,                 // 7
     Count = LUCAM_PF_COUNT,                    // 4
     Filter = LUCAM_PF_FILTER,                  // 5
+#ifdef __linux__
     Depth10BitsPacked = LUCAM_PF_10_PACKED,    // 10
+#endif
     Depth12BitsPacked = LUCAM_PF_12_PACKED     // 12
 };
 

@@ -16,11 +16,11 @@ def test_snapshot():
     try:
         # Get the number of connected camera
         numCams = lucam.NumCameras()
-        print(numCams)
+        print("Number of cameras:", numCams)
 
         # Enumerate the list of connected camera
         camList = lucam.EnumCameras(numCams)
-        print(camList[0].serialnumber)
+        print("First camera serial's number:", camList[0].serialnumber)
 
         # Open the first camera
         camIndex = 1
@@ -30,7 +30,7 @@ def test_snapshot():
         format, frame_rate = lucam.GetFormat(camHandle);
         frame_size = format.width * format.height; # in bytes
         format.pixel_format = 0 # 8 bits depth
-        print("Camera frame size", format.width, format.height, frame_size)
+        print("Camera frame info:", format.width, "x", format.height, frame_size)
         
         # Set the Snapshot settings
         snapshot_settings = lucam.LUCAM_SNAPSHOT()

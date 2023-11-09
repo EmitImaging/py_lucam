@@ -1,8 +1,14 @@
-// lucam_binding.cpp
+/*
+    Copyright (c) 2023, Emit Imaging
+    All rights reserved.
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree. 
+*/
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
-#include "api/include/lucamapi.h"
+#include "lucamapi.h"
 #include "error_codes.h"
 #include "enum_defines.h"
 
@@ -172,7 +178,9 @@ PYBIND11_MODULE(lucam, m) {
         .value("Depth48Bits", LucamPixelFormat::Depth48Bits)
         .value("Count", LucamPixelFormat::Count)
         .value("Filter", LucamPixelFormat::Filter)
+#ifdef __linux__
         .value("Depth10BitsPacked", LucamPixelFormat::Depth10BitsPacked)
+#endif
         .value("Depth12BitsPacked", LucamPixelFormat::Depth12BitsPacked)
         .export_values();
 

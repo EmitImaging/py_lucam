@@ -3,23 +3,45 @@ import os
 import pybind11
 
 # Define variables for sources and library locations
-sources = ['src/lucam_binding.cpp']
 lucam_root = os.environ['LUMENERA_SDK']
-lib_directory = os.path.join(lucam_root, 'api', 'lib')
-include_directory = os.path.join(os.environ['LUMENERA_SDK'], 'api', 'include')
+sources = ['src/lucam_binding.cpp']
 libraries = ['lucamapi']
+
+if os.name == "nt":
+    # Windows
+    platform_name = 'Windows'
+    platform_api = 'LUMENERA_WINDOWS_API'
+    std_flag = '/std:c++latest'
+    lib_directory = os.path.join(lucam_root, 'lib', 'lib64')
+    include_directory = os.path.join(lucam_root, 'include')
+    link_args = [f'/LIBPATH:{lib_directory}', f'{libraries[0]}.lib']
+else:
+    # Linux
+    platform_name = 'Linux'
+    platform_api = 'LUMENERA_LINUX_API'
+    std_flag = '-std=c++11'
+    lib_directory = os.path.join(lucam_root, 'api', 'lib')
+    include_directory = os.path.join(lucam_root, 'api', 'include')
+    link_args = [f'-L{lib_directory}', f'-l'{libraries[0]}]
 
 lucam_module = Extension(
     name='lucam',
     sources=sources,
     include_dirs=[pybind11.get_include()],
     language='c++',
-    extra_compile_args=['-std=c++11', '-DLUMENERA_LINUX_API', f'-I{lucam_root}'],
-    extra_link_args=[f'-L{lib_directory}', '-l'+libraries[0]],
+    extra_compile_args=[f'{std_flag}', f'-D{platform_api}', f'-I{include_directory}'],
+    extra_link_args=link_args,
 )
 
 setup(
-    name='lucam_python',
+    name='py_lucam',
     version='0.1',
+    license='BSD',
+    author='Emit Imaging',
+    author_email='yannick.cadoret@emitimaging.com',
+    url='https://www.emitimaging.com',
+    python_requires='>=3.11',
+    install_requires=['numpy>=1.26.1'],
+    platforms=[f'{platform_name}'],
     ext_modules=[lucam_module],
 )
